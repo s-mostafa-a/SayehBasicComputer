@@ -1,0 +1,21 @@
+library IEEE;
+use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
+entity adder is
+  port (
+    A, B : in STD_LOGIC_VECTOR(15 downto 0);
+    cin : in STD_LOGIC;
+    O : out STD_LOGIC_VECTOR(15 downto 0);
+    Cout : out STD_LOGIC
+  );
+end entity;
+
+architecture adder_arch of adder is
+  signal s : std_logic_vector(16 downto 0);
+  signal sc : std_logic_vector(1 downto 0);
+begin
+    sc <= "0"&cin;
+    s <= std_logic_vector(unsigned("0"&a) + unsigned(b)+unsigned(sc) );
+    O <= s(15 downto 0);
+    cout <= s(16);
+end architecture;

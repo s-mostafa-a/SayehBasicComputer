@@ -1,0 +1,13 @@
+library IEEE;
+use IEEE.std_logic_1164.all;
+entity ShiftLeft is
+  port (
+    A : in STD_LOGIC_VECTOR(15 downto 0);
+    O : out STD_LOGIC_VECTOR(15 downto 0)
+  );
+end entity;
+
+architecture shiftLeft_arch of ShiftLeft is
+begin
+  O <=  '0' & a(15 downto 1);
+end architecture;

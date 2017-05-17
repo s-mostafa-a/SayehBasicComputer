@@ -1,0 +1,16 @@
+library IEEE;
+use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
+entity TWOS_Complement is
+  port (
+    A : in STD_LOGIC_VECTOR(15 downto 0);
+    O : out STD_LOGIC_VECTOR(15 downto 0)
+  );
+end entity;
+
+architecture Twos_arch of TWOS_Complement is
+signal s: unsigned(15 downto 0);
+begin
+   s <= not A;
+   o <= STD_LOGIC_VECTOR(s + 1);
+end architecture;

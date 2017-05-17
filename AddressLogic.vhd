@@ -1,0 +1,40 @@
+library IEEE;
+
+use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
+ENTITY AddressLogic IS
+    PORT (
+        resetPC,PCPlus1,PCPlusI,RPlusI,RPlus0 : IN std_logic;
+        ISide: IN std_logic_vector (15 DOWNTO 0);
+        RSide: IN std_logic_vector (15 DOWNTO 0);
+        PCSide: IN std_logic_vector (15 DOWNTO 0);
+        Alout: OUT std_logic_vector (15 DOWNTO 0)
+    );
+END AddressLogic;
+ARCHITECTURE ADDRESS_LOGIC_ARCH of ADDRESSLOGIC IS
+    CONSTANT one   : std_logic_vector (4 DOWNTO 0)
+                   := "10000";
+    CONSTANT two   : std_logic_vector (4 DOWNTO 0)
+                   := "01000";
+    CONSTANT three : std_logic_vector (4 DOWNTO 0)
+                   := "00100";
+    CONSTANT four  : std_logic_vector (4 DOWNTO 0)
+                   := "00010";
+    CONSTANT five  : std_logic_vector (4 DOWNTO 0)
+                   := "00001";
+BEGIN
+    PROCESS (PCside, Rside, Iside, ResetPC,
+            PCplusI, PCplus1, RplusI, Rplus0)
+        VARIABLE temp : std_logic_vector (4 DOWNTO 0);
+BEGIN
+        temp := (ResetPC & PCplusI & PCplus1 & RplusI & Rplus0);
+        CASE temp IS
+            WHEN one => ALout <= (OTHERS => '0');
+            WHEN two => ALout <= std_logic_vector(unsigned(PCside) + unsigned(Iside(7 downto 0)));
+            WHEN three => ALout <= std_logic_vector(unsigned(PCside) + 1);
+            WHEN four => ALout <= std_logic_vector(unsigned(Rside)+ unsigned(Iside(7 downto 0)));
+            WHEN five => ALout <= Rside;
+            WHEN OTHERS => ALout <= PCside;
+        END CASE;
+    END PROCESS;
+END ADDRESS_LOGIC_ARCH;

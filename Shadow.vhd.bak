@@ -1,0 +1,16 @@
+library IEEE;
+use IEEE.std_logic_1164.all;
+
+ENTITY Shadow IS
+    PORT (
+        Shad : IN std_logic;
+        input: IN std_logic_vector (15 DOWNTO 0);
+        output: OUT std_logic_vector (4 DOWNTO 0)
+    );
+END Shadow;
+
+ARCHITECTURE Shadow_ARCH OF Shadow IS BEGIN
+  output <= 
+            input(11 downto 7) when shad = '1' else
+            input(4 downto 0) when shad = '0';
+END Shadow_ARCH;
